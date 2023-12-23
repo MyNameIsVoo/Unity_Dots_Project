@@ -14,17 +14,37 @@ namespace UnityTutorials
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            foreach (RefRW<Spawner> spawner in SystemAPI.Query<RefRW<Spawner>>())
-                ProcessSpawner(ref state, spawner);
+            EntityCommandBuffer.ParallelWriter ecb = GetEntityCommandBuffer(ref state);
+
+            new ProcessSpawnerJob
+            {
+                ElapsedTime = SystemAPI.Time.ElapsedTime,
+                Ecb = ecb
+            }.ScheduleParallel();
         }
 
-        private void ProcessSpawner(ref SystemState state, RefRW<Spawner> spawner)
+        private EntityCommandBuffer.ParallelWriter GetEntityCommandBuffer(ref SystemState state)
         {
-            if (spawner.ValueRO.NextSpawnTime < SystemAPI.Time.ElapsedTime)
+            var ecbSingleton = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>();
+            var ecb = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged);
+
+            return ecb.AsParallelWriter();
+        }
+    }
+
+    [BurstCompile]
+    public partial struct ProcessSpawnerJob : IJobEntity
+    {
+        public EntityCommandBuffer.ParallelWriter Ecb;
+        public double ElapsedTime;
+
+        private void Execute([ChunkIndexInQuery] int chunkIndex, ref Spawner spawner)
+        {
+            if (spawner.NextSpawnTime < ElapsedTime)
             {
-                Entity newEntity = state.EntityManager.Instantiate(spawner.ValueRO.Prefab);
-                state.EntityManager.SetComponentData(newEntity, LocalTransform.FromPosition(spawner.ValueRO.SpawnPosition));
-                spawner.ValueRW.NextSpawnTime = (float)SystemAPI.Time.ElapsedTime + spawner.ValueRO.SpawnRate;
+                Entity newEntity = Ecb.Instantiate(chunkIndex, spawner.Prefab);
+                Ecb.SetComponent(chunkIndex, newEntity, LocalTransform.FromPosition(spawner.SpawnPosition));
+                spawner.NextSpawnTime = (float)ElapsedTime + spawner.SpawnRate;
             }
         }
     }
