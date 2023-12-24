@@ -22,7 +22,7 @@ namespace Helpers.Systems
         //[BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            if (unitEntityQuery.CalculateEntityCount() < 10)
+            if (unitEntityQuery.CalculateEntityCount() < 10000)
             {
                 EntityCommandBuffer.ParallelWriter ecb = GetEntityCommandBuffer(ref state);
                 RefRW<RandomComponent> randomComponent = SystemAPI.GetSingletonRW<RandomComponent>();
@@ -55,7 +55,7 @@ namespace Helpers.Systems
 
         private void Execute([ChunkIndexInQuery] int chunkIndex, ref Spawner spawner)
         {
-            if (spawner.NextSpawnTime < ElapsedTime)
+            if (spawner.NextSpawnTime < ElapsedTime || spawner.SpawnRate <= 0)
             {
                 Entity newEntity = Ecb.Instantiate(chunkIndex, spawner.Prefab);
                 Ecb.SetComponent(chunkIndex, newEntity, LocalTransform.FromPosition(spawner.SpawnPosition));

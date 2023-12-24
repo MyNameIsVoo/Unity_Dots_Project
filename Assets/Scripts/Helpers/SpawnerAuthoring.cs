@@ -7,7 +7,7 @@ namespace Helpers
     class SpawnerAuthoring : MonoBehaviour
     {
         [SerializeField] private GameObject prefab;
-        [SerializeField] private float spawnRate;
+        [SerializeField, Min(-1)] private float spawnRate;
 
         public GameObject Prefab
         {
@@ -31,7 +31,7 @@ namespace Helpers
                 Prefab = GetEntity(authoring.Prefab, TransformUsageFlags.Dynamic),
                 SpawnPosition = authoring.transform.position,
                 NextSpawnTime = 0.0f,
-                SpawnRate = authoring.SpawnRate
+                SpawnRate = authoring.SpawnRate,
             });
         }
     }
