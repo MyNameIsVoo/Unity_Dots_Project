@@ -10,6 +10,7 @@ namespace Unit
 {
     namespace System
     {
+        [BurstCompile]
         public partial struct UnitMovingSystem : ISystem
         {
             [BurstCompile]
@@ -35,6 +36,7 @@ namespace Unit
             }
         }
 
+        [BurstCompile]
         public partial struct MoveJob : IJobEntity
         {
             public float deltaTime;
@@ -45,6 +47,7 @@ namespace Unit
             }
         }
 
+        [BurstCompile]
         public partial struct CheckReachedTargetDistanceJob : IJobEntity
         {
             [NativeDisableUnsafePtrRestriction] public RefRW<RandomComponent> randomComponent;

@@ -27,7 +27,7 @@ namespace Unit
         public override void Bake(UnitAuthoring authoring)
         {
             var entity = GetEntity(TransformUsageFlags.Dynamic);
-            AddComponent(entity, new UnitBase());
+            AddComponent(entity, new UnitTag());
 
             AddComponent(entity, new UnitMovements
             {

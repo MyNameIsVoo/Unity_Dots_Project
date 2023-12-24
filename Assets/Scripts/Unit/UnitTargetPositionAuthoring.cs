@@ -22,7 +22,7 @@ namespace Unit
             var entity = GetEntity(TransformUsageFlags.Dynamic);
             AddComponent(entity, new UnitTargetPosition
             {
-                value = authoring.TargetPosition
+                Value = authoring.TargetPosition
             });
         }
     }

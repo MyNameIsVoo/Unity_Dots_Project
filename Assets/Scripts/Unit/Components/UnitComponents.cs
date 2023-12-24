@@ -5,7 +5,7 @@ namespace Unit
 {
     namespace Component
     {
-        public struct UnitBase : IComponentData
+        public struct UnitTag : IComponentData
         {
             
         }
@@ -17,7 +17,7 @@ namespace Unit
 
         public struct UnitTargetPosition : IComponentData
         {
-            public float3 value;
+            public float3 Value;
         }
     }
 }

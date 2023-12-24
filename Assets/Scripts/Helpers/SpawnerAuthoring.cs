@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using Unity.Entities;
+using Helpers.Components;
 
-namespace UnityTutorials
+namespace Helpers
 {
     class SpawnerAuthoring : MonoBehaviour
     {

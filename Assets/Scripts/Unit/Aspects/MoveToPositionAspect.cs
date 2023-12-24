@@ -16,20 +16,20 @@ namespace Unit.Aspects
 
         public void Move(float deltaTime)
         {
-            float3 direction = math.normalize(targetPosition.ValueRW.value - transform.ValueRW.Position);
+            float3 direction = math.normalize(targetPosition.ValueRW.Value - transform.ValueRW.Position);
             transform.ValueRW.Position += direction * deltaTime * unitMovements.ValueRO.Speed;
         }
 
         public void CheckReachedTargetDistance(RefRW<RandomComponent> randomComponent)
         {
             float reachedTargetDistance = 0.5f;
-            if (math.distance(transform.ValueRW.Position, targetPosition.ValueRW.value) <= reachedTargetDistance)
-                targetPosition.ValueRW.value = GenerateNewDirection(randomComponent);
+            if (math.distance(transform.ValueRW.Position, targetPosition.ValueRW.Value) <= reachedTargetDistance)
+                targetPosition.ValueRW.Value = GenerateNewDirection(randomComponent);
         }
 
         private float3 GenerateNewDirection(RefRW<RandomComponent> randomComponent)
         {
-            return new float3(randomComponent.ValueRW.random.NextFloat(0, 15f), 0, randomComponent.ValueRW.random.NextFloat(0, 15f));
+            return new float3(randomComponent.ValueRW.random.NextFloat(-5, 5f), 0, randomComponent.ValueRW.random.NextFloat(-5, 5f));
         }
     }
 }

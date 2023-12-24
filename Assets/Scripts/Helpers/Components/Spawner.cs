@@ -1,7 +1,7 @@
 using Unity.Entities;
 using Unity.Mathematics;
 
-namespace UnityTutorials
+namespace Helpers.Components
 {
     public struct Spawner : IComponentData
     {
