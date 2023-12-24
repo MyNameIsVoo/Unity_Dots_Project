@@ -5,6 +5,11 @@ namespace Unit
 {
     namespace Component
     {
+        public struct UnitBaseComponent : IComponentData
+        {
+            public int AmountUnits;
+        }
+
         public struct UnitTag : IComponentData
         {
             

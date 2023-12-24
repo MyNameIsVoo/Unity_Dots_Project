@@ -19,10 +19,11 @@ namespace Helpers.Systems
 
         public void OnDestroy(ref SystemState state) { }
 
-        //[BurstCompile]
+        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            if (unitEntityQuery.CalculateEntityCount() < 10000)
+            if (SystemAPI.TryGetSingleton(out UnitBaseComponent unitBaseComponent) && 
+                unitEntityQuery.CalculateEntityCount() < unitBaseComponent.AmountUnits && unitBaseComponent.AmountUnits > 0)
             {
                 EntityCommandBuffer.ParallelWriter ecb = GetEntityCommandBuffer(ref state);
                 RefRW<RandomComponent> randomComponent = SystemAPI.GetSingletonRW<RandomComponent>();

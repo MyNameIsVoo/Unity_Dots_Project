@@ -6,7 +6,7 @@ using Unity.Transforms;
 
 namespace Unit.Aspects
 {
-    public readonly partial struct MoveToPositionAspect : IAspect
+    public readonly partial struct UnitMoveToPositionAspect : IAspect
     {
         private readonly Entity entity;
 
@@ -20,16 +20,17 @@ namespace Unit.Aspects
             transform.ValueRW.Position += direction * deltaTime * unitMovements.ValueRO.Speed;
         }
 
-        public void CheckReachedTargetDistance(RefRW<RandomComponent> randomComponent)
+        public void CheckReachedTargetDistance2D(RefRW<RandomComponent> randomComponent)
         {
             float reachedTargetDistance = 0.5f;
             if (math.distance(transform.ValueRW.Position, targetPosition.ValueRW.Value) <= reachedTargetDistance)
-                targetPosition.ValueRW.Value = GenerateNewDirection(randomComponent);
+                targetPosition.ValueRW.Value = GenerateNewDirection2D(randomComponent);
         }
 
-        private float3 GenerateNewDirection(RefRW<RandomComponent> randomComponent)
+        private float3 GenerateNewDirection2D(RefRW<RandomComponent> randomComponent)
         {
-            return new float3(randomComponent.ValueRW.random.NextFloat(-5, 5f), 0, randomComponent.ValueRW.random.NextFloat(-5, 5f));
+            float size = 5;
+            return new float3(randomComponent.ValueRW.random.NextFloat(-size, size), 0, randomComponent.ValueRW.random.NextFloat(-size, size));
         }
     }
 }

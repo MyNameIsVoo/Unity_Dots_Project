@@ -1,10 +1,10 @@
 ﻿using Unity.Entities;
-using Unit.Component;
 using Unity.Burst;
 using Unit.Aspects;
 using Helpers.Components;
 using Unity.Jobs;
 using Unity.Collections.LowLevel.Unsafe;
+using Unit.Component;
 
 namespace Unit
 {
@@ -24,13 +24,15 @@ namespace Unit
             {
                 var dt = SystemAPI.Time.DeltaTime;
                 RefRW<RandomComponent> randomComponent = SystemAPI.GetSingletonRW<RandomComponent>();
-
-                JobHandle jobHandle = new MoveJob {
+                
+                JobHandle jobHandle = new MoveJob 
+                {
                     deltaTime = dt
                 }.ScheduleParallel(state.Dependency);
                 jobHandle.Complete();
-
-                new CheckReachedTargetDistanceJob { 
+                
+                new CheckReachedTargetDistance2DJob
+                { 
                     randomComponent = randomComponent 
                 }.Run();
             }
@@ -41,22 +43,21 @@ namespace Unit
         {
             public float deltaTime;
 
-            public void Execute(MoveToPositionAspect moveToPositionAspect)
+            public void Execute(UnitMoveToPositionAspect moveToPositionAspect)
             {
                 moveToPositionAspect.Move(deltaTime);
             }
         }
 
         [BurstCompile]
-        public partial struct CheckReachedTargetDistanceJob : IJobEntity
+        public partial struct CheckReachedTargetDistance2DJob : IJobEntity
         {
             [NativeDisableUnsafePtrRestriction] public RefRW<RandomComponent> randomComponent;
 
-            public void Execute(MoveToPositionAspect moveToPositionAspect)
+            public void Execute(UnitMoveToPositionAspect moveToPositionAspect)
             {
-                moveToPositionAspect.CheckReachedTargetDistance(randomComponent);
+                moveToPositionAspect.CheckReachedTargetDistance2D(randomComponent);
             }
         }
-
     }
 }
