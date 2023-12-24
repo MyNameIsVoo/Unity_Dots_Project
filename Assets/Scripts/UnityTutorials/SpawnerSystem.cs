@@ -15,7 +15,7 @@ namespace UnityTutorials
         public void OnUpdate(ref SystemState state)
         {
             EntityCommandBuffer.ParallelWriter ecb = GetEntityCommandBuffer(ref state);
-
+            
             new ProcessSpawnerJob
             {
                 ElapsedTime = SystemAPI.Time.ElapsedTime,

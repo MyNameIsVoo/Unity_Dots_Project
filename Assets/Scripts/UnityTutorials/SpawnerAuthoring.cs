@@ -23,7 +23,8 @@ namespace UnityTutorials
     {
         public override void Bake(SpawnerAuthoring authoring)
         {
-            var entity = GetEntity(TransformUsageFlags.None); // Зачем???
+            var entity = GetEntity(TransformUsageFlags.None);
+
             AddComponent(entity, new Spawner
             {
                 Prefab = GetEntity(authoring.Prefab, TransformUsageFlags.Dynamic),
