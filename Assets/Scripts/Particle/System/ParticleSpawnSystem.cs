@@ -13,7 +13,6 @@ namespace Particle.Systems
     {
         public EntityQuery particleEntityQuery;
 
-        [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
             particleEntityQuery = state.GetEntityQuery(typeof(ParticleTag));

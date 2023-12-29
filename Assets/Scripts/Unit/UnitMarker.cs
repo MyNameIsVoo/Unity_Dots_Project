@@ -1,14 +1,22 @@
-﻿using Unit.Component;
+﻿using DI;
+using Unit.Component;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.Unit
 {
     public class UnitMarker : MonoBehaviour
     {
+        private InputSystem inputSystem;
         private Entity targetEntity;
+
+        private void Start()
+        {
+            Debug.Log($"Unit Marker => {inputSystem.testText}");
+        }
 
         private void LateUpdate()
         {
@@ -30,5 +38,12 @@ namespace Assets.Scripts.Unit
                 return entityNativeArray[Random.Range(0, entityNativeArray.Length)];
             return Entity.Null;
         }
+
+        [Inject]
+        private void Inject(InputSystem inputSystem)
+        {
+            this.inputSystem = inputSystem;
+        }
+
     }
 }
