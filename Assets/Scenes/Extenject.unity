@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 55258296}
   - component: {fileID: 55258295}
   - component: {fileID: 55258294}
-  - component: {fileID: 55258293}
+  - component: {fileID: 55258297}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -142,19 +142,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &55258293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55258292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7482595eb19d760419a2cfcaf091771d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  testText: ololo
 --- !u!114 &55258294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 617fe39ddf3a39f4a8553daae59a1857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputSystem: {fileID: 55258293}
+  playerPrefab: {fileID: 4554580628473116687, guid: ade7623a4be0b2045acf5f0ba6539029, type: 3}
+  sceneTestObject: {fileID: 7197755838680965020, guid: 2e1d3859df66bf34085de90b74d46880, type: 3}
+  spawnPoint: {fileID: 1752237779}
+  playerSettings: {fileID: 11400000, guid: 8af026fd73046f44baf55c9d17755483, type: 2}
+  testSystem: {fileID: 55258297}
 --- !u!114 &55258295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +206,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &55258297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55258292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa896041162ab814d84e3fe919fa992c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &203844586
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,6 +473,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1752237778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1752237779}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1752237779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752237778}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2111039631
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +515,7 @@ GameObject:
   - component: {fileID: 2111039633}
   - component: {fileID: 2111039632}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: TestGO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -499,6 +533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95f5cb7ba1f48943a4ace74e3a8ad45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadScene: 0
 --- !u!4 &2111039633
 Transform:
   m_ObjectHideFlags: 0
@@ -522,3 +557,4 @@ SceneRoots:
   - {fileID: 203844589}
   - {fileID: 55258296}
   - {fileID: 2111039633}
+  - {fileID: 1752237779}

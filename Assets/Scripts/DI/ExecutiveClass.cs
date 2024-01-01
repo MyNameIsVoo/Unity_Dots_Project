@@ -14,6 +14,13 @@ namespace DI
 
         private InputSystem inputSystem;
         private IMovable movable;
+        private Boo boo1;
+
+        private SceneTestObject.Factory sceneTestObjectFactory;
+        private Foo.Factory fooFactory;
+
+        private List<SceneTestObject> testObjects;
+        private Foo foo;
 
         private IEnumerator Start()
         {
@@ -26,30 +33,78 @@ namespace DI
 
                 SceneManager.LoadSceneAsync("ECSScene");
             }
+
+            CreateSceneObjects(5);
+            foo = fooFactory.Create();
+
+            boo1.Init("Boo 1");
+
+            yield return new WaitForSeconds(5f);
+
+            Boo boo2 = new(null);
+            boo2.Init("Boo 2");
         }
 
         [Inject]
-        private void Inject(InputSystem inputSystem, IMovable movable)
+        private void Inject(InputSystem inputSystem, IMovable movable, TestSystem testSystem)
         {
             this.inputSystem = inputSystem;
             this.movable = movable;
+            
+            boo1 = new Boo(testSystem);
+        }
+
+        [Inject]
+        private void InjectFactories(SceneTestObject.Factory sceneTestObjectFactory, Foo.Factory fooFactory)
+        {
+            this.sceneTestObjectFactory = sceneTestObjectFactory;
+            this.fooFactory = fooFactory;
+        }
+
+        private void CreateSceneObjects(int amount)
+        {
+            testObjects = new List<SceneTestObject>();
+
+            for (int i = 0; i < amount; i++)
+            {
+                SceneTestObject sceneTestObject = sceneTestObjectFactory.Create();
+                testObjects.Add(sceneTestObject);
+            }
         }
     }
 
+    [Serializable]
     public class Boo
     {
-        private IMovable movable;
+        private TestSystem testSystem;
+        private string name;
 
-        public void Start()
+        public void Init(string name)
         {
-            Debug.Log(movable.GetType());
+            this.name = name;
+
+            Debug.Log(name + " " + (testSystem != null ? testSystem.GetType() : "testSystem = null"));
         }
 
-        private Boo(IMovable movable)
+        public Boo(TestSystem testSystem)
         {
-            this.movable = movable;
+            this.testSystem = testSystem;
+        }
+    }
 
-            Start();
+    [Serializable]
+    public class Foo
+    {
+        private TestSystem testSystem;
+
+        [Inject]
+        private void Inject(TestSystem testSystem)
+        {
+            this.testSystem = testSystem;
+        }
+
+        public class Factory : PlaceholderFactory<Foo>
+        {
         }
     }
 }

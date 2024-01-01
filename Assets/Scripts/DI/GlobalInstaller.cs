@@ -9,7 +9,7 @@ namespace DI
 
         public override void InstallBindings()
         {
-            Container.Bind<InputSystem>().FromInstance(inputSystem);
+            Container.Bind<InputSystem>().FromInstance(inputSystem).AsSingle();
         }
     }
 }
