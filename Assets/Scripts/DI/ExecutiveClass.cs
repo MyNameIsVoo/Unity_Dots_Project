@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -11,6 +12,7 @@ namespace DI
     public class ExecutiveClass : MonoBehaviour
     {
         [SerializeField] private bool loadScene;
+        [SerializeField] private GameObject[] sceneTestPrefabExample2Prefab;
 
         private InputSystem inputSystem;
         private IMovable movable;
@@ -21,6 +23,10 @@ namespace DI
 
         private List<SceneTestObject> testObjects;
         private Foo foo;
+
+        private List<GameObject> testObjectsExample2;
+
+        [Inject] private DiContainer diContainer;
 
         private IEnumerator Start()
         {
@@ -64,12 +70,12 @@ namespace DI
         private void CreateSceneObjects(int amount)
         {
             testObjects = new List<SceneTestObject>();
-
             for (int i = 0; i < amount; i++)
-            {
-                SceneTestObject sceneTestObject = sceneTestObjectFactory.Create();
-                testObjects.Add(sceneTestObject);
-            }
+                testObjects.Add(sceneTestObjectFactory.Create());
+
+            testObjectsExample2 = new List<GameObject>();
+            for (int i = 0; i < sceneTestPrefabExample2Prefab.Length; i++)
+                testObjectsExample2.Add(diContainer.InstantiatePrefab(sceneTestPrefabExample2Prefab[i]));
         }
     }
 
