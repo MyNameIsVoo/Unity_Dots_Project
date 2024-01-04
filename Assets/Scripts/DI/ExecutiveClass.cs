@@ -23,6 +23,7 @@ namespace DI
 
         private List<SceneTestObject> testObjects;
         private Foo foo;
+        private Goo goo;
 
         private List<GameObject> testObjectsExample2;
 
@@ -49,6 +50,8 @@ namespace DI
 
             Boo boo2 = new(null);
             boo2.Init("Boo 2");
+
+            goo = diContainer.Instantiate<Goo>();
         }
 
         [Inject]
@@ -112,5 +115,11 @@ namespace DI
         public class Factory : PlaceholderFactory<Foo>
         {
         }
+    }
+
+    [Serializable]
+    public class Goo
+    {
+        [Inject] private TestSystem testSystem;
     }
 }

@@ -5,7 +5,6 @@ namespace DI
 {
     public class SceneInstaller : MonoInstaller
     {
-        
         [SerializeField] private GameObject playerPrefab;
         [SerializeField] private GameObject sceneTestObject;
 
@@ -30,6 +29,8 @@ namespace DI
 
             Container.BindFactory<SceneTestObject, SceneTestObject.Factory>().FromComponentInNewPrefab(sceneTestObject);
             Container.BindFactory<Foo, Foo.Factory>();
+
+            //Container.Bind<Goo>();
         }
     }
 }

@@ -156,9 +156,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 4554580628473116687, guid: ade7623a4be0b2045acf5f0ba6539029, type: 3}
   sceneTestObject: {fileID: 7197755838680965020, guid: 2e1d3859df66bf34085de90b74d46880, type: 3}
-  sceneTestPrefabExample2Prefab:
-  - {fileID: 5626967094728217039, guid: 3fd69b4b02055474384c39bf3d144ba8, type: 3}
-  - {fileID: 5626967094728217039, guid: 65e1db89b8ce350428d5c3cdda4163dd, type: 3}
   spawnPoint: {fileID: 1752237779}
   playerSettings: {fileID: 11400000, guid: 8af026fd73046f44baf55c9d17755483, type: 2}
   testSystem: {fileID: 55258297}
@@ -538,6 +535,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadScene: 0
+  sceneTestPrefabExample2Prefab:
+  - {fileID: 5626967094728217039, guid: 3fd69b4b02055474384c39bf3d144ba8, type: 3}
+  - {fileID: 5626967094728217039, guid: 65e1db89b8ce350428d5c3cdda4163dd, type: 3}
 --- !u!4 &2111039633
 Transform:
   m_ObjectHideFlags: 0
